@@ -23,10 +23,11 @@ void Start()
 {
     cloudPos = Vector2(-320, 100);
     cannonPos = Vector2(-80, -150);
-    targetRect = Rect(80, -140, 40, 40);
+     targetRect = Rect(80, -140, 40, 40);
     bulletPos.x = -999;
     score = 0;
 }
+
 
 // 1/60秒ごとに呼ばれる関数です。モデルの更新と画面の描画を行います。
 void Update()
@@ -54,7 +55,14 @@ void Update()
 
     // 雲の描画
     DrawImage("cloud1.png", cloudPos);
-
+    
+    
+    //雲の移動（実装、HW16A033 大和田 滉恵）
+    cloudPos.x += 50 * Time::deltaTime;
+    if (cloudPos.x > 310){
+        cloudPos.x = -600;
+    }
+    
     // 弾の描画
     if (bulletPos.x > -999) {
         DrawImage("bullet.png", bulletPos);
