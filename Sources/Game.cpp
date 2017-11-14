@@ -7,7 +7,6 @@
 // TODO: 弾のスピードを速くし、弾が画面右端を通り越したら再度発射可能にする。(D)
 // TODO: スコアのサイズを大きくする。(E)
 // TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F)
-// TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F) 
 // TODO: PlayBGM()関数を使って、BGMを再生する。(G)
 // TODO: PlaySE()関数を使って、弾の発射時とターゲットに当たった時にSEを再生する。(H)
 
@@ -25,14 +24,20 @@ void Start()
 {
     // TODO: 砲台の位置を画面左に、ターゲットの位置を画面右に移動させる。(実装　HW16A038 岡本　浩弥)
     cloudPos = Vector2(-320, 100);
+<<<<<<< HEAD
     cannonPos = Vector2(-310, -150);
     targetRect = Rect(280, -140, 40, 40);
+=======
+    cannonPos = Vector2(-80, -150);
+     targetRect = Rect(80, -140, 40, 40);
+>>>>>>> dfceef94e4dfc15dfdfd42add984334fed62b444
     bulletPos.x = -999;
     score = 0;
     // BGMを再生（実装：小西敦也）
     PlayBGM("bgm_maoudamashii_8bit07.mp3");
 
 }
+
 
 // 1/60秒ごとに呼ばれる関数です。モデルの更新と画面の描画を行います。
 void Update()
@@ -71,7 +76,14 @@ void Update()
 
     // 雲の描画
     DrawImage("cloud1.png", cloudPos);
-
+    
+    
+    //雲の移動（実装、HW16A033 大和田 滉恵）
+    cloudPos.x += 50 * Time::deltaTime;
+    if (cloudPos.x > 310){
+        cloudPos.x = -600;
+    }
+    
     // 弾の描画
     if (bulletPos.x > -999) {
         DrawImage("bullet.png", bulletPos);
