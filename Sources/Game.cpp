@@ -18,6 +18,7 @@ Rect    targetRect;     //!< ターゲットの矩形
 int     score;          //!< スコア
 
 
+
 // ゲーム開始時に呼ばれる関数です。
 void Start()
 {
@@ -26,6 +27,9 @@ void Start()
      targetRect = Rect(80, -140, 40, 40);
     bulletPos.x = -999;
     score = 0;
+    // BGMを再生（実装：小西敦也）
+    PlayBGM("bgm_maoudamashii_8bit07.mp3");
+
 }
 
 
@@ -35,6 +39,11 @@ void Update()
     // 弾の発射
     if (bulletPos.x <= -999 && Input::GetKeyDown(KeyMask::Space)) {
         bulletPos = cannonPos + Vector2(50, 10);
+        
+        // 発射時SEを再生（実装：小西敦也）
+        PlaySound("se_maoudamashii_explosion06.mp3");
+
+        
     }
 
     // 弾の移動
@@ -42,12 +51,17 @@ void Update()
         bulletPos.x += 10 * Time::deltaTime;
         bulletPos.x += 100 * Time::deltaTime;
 
+
         // ターゲットと弾の当たり判定
         Rect bulletRect(bulletPos, Vector2(32, 20));
         if (targetRect.Overlaps(bulletRect)) {
             score += 1;         // スコアの加算
             bulletPos.x = -999; // 弾を発射可能な状態に戻す
+            // 的に当たった時SEを再生（実装：小西敦也）
+            PlaySound("se_maoudamashii_explosion03.mp3");
+            
         }
+        
     }
 
     // 背景の描画
@@ -80,5 +94,6 @@ void Update()
     SetFont("nicoca_v1.ttf", 20.0f);
     DrawText(FormatString("%02d", score), Vector2(-319, 199), Color::black);
     DrawText(FormatString("%02d", score), Vector2(-320, 200), Color::white);
+    
 }
 
