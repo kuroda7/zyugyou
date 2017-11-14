@@ -7,7 +7,6 @@
 // TODO: 弾のスピードを速くし、弾が画面右端を通り越したら再度発射可能にする。(D)
 // TODO: スコアのサイズを大きくする。(E)
 // TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F)
-// TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F) 
 // TODO: PlayBGM()関数を使って、BGMを再生する。(G)
 // TODO: PlaySE()関数を使って、弾の発射時とターゲットに当たった時にSEを再生する。(H)
 
@@ -19,15 +18,20 @@ Rect    targetRect;     //!< ターゲットの矩形
 int     score;          //!< スコア
 
 
+
 // ゲーム開始時に呼ばれる関数です。
 void Start()
 {
     cloudPos = Vector2(-320, 100);
     cannonPos = Vector2(-80, -150);
-    targetRect = Rect(80, -140, 40, 40);
+     targetRect = Rect(80, -140, 40, 40);
     bulletPos.x = -999;
     score = 0;
+    // BGMを再生（実装：小西敦也）
+    PlayBGM("bgm_maoudamashii_8bit07.mp3");
+
 }
+
 
 // 1/60秒ごとに呼ばれる関数です。モデルの更新と画面の描画を行います。
 void Update()
@@ -35,6 +39,11 @@ void Update()
     // 弾の発射
     if (bulletPos.x <= -999 && Input::GetKeyDown(KeyMask::Space)) {
         bulletPos = cannonPos + Vector2(50, 10);
+        
+        // 発射時SEを再生（実装：小西敦也）
+        PlaySound("se_maoudamashii_explosion06.mp3");
+
+        
     }
 
     // 弾の移動
@@ -42,12 +51,17 @@ void Update()
         bulletPos.x += 10 * Time::deltaTime;
         bulletPos.x += 100 * Time::deltaTime;
 
+
         // ターゲットと弾の当たり判定
         Rect bulletRect(bulletPos, Vector2(32, 20));
         if (targetRect.Overlaps(bulletRect)) {
             score += 100;         // スコアの加算
             bulletPos.x = -999; // 弾を発射可能な状態に戻す
+            // 的に当たった時SEを再生（実装：小西敦也）
+            PlaySound("se_maoudamashii_explosion03.mp3");
+            
         }
+        
     }
 
     // 背景の描画
@@ -56,7 +70,14 @@ void Update()
 
     // 雲の描画
     DrawImage("cloud1.png", cloudPos);
-
+    
+    
+    //雲の移動（実装、HW16A033 大和田 滉恵）
+    cloudPos.x += 50 * Time::deltaTime;
+    if (cloudPos.x > 310){
+        cloudPos.x = -600;
+    }
+    
     // 弾の描画
     if (bulletPos.x > -999) {
         DrawImage("bullet.png", bulletPos);
@@ -70,8 +91,15 @@ void Update()
     FillRect(targetRect, Color::red);
 
     // スコアの描画
+<<<<<<< HEAD
     SetFont("nicoca_v1.ttf", 80.0f);
     DrawText(FormatString("%02d", score), Vector2(-319, 179), Color::black);
     DrawText(FormatString("%02d", score), Vector2(-320, 180), Color::white);
+=======
+    SetFont("nicoca_v1.ttf", 20.0f);
+    DrawText(FormatString("%02d", score), Vector2(-319, 199), Color::black);
+    DrawText(FormatString("%02d", score), Vector2(-320, 200), Color::white);
+    
+>>>>>>> dfceef94e4dfc15dfdfd42add984334fed62b444
 }
 
