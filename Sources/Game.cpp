@@ -6,7 +6,7 @@
 // TODO: 砲台を青い壁に沿って上下に動かす。(C)
 // TODO: 弾のスピードを速くし、弾が画面右端を通り越したら再度発射可能にする。(D)
 // TODO: スコアのサイズを大きくする。(E)
-// TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F) 
+// TODO: スコアを100点ずつ加算するようにし、5桁の表示に変える。(F)
 // TODO: PlayBGM()関数を使って、BGMを再生する。(G)
 // TODO: PlaySE()関数を使って、弾の発射時とターゲットに当たった時にSEを再生する。(H)
 
@@ -38,7 +38,7 @@ void Update()
 
     // 弾の移動
     if (bulletPos.x > -999) {
-        bulletPos.x += 100 * Time::deltaTime;
+        bulletPos.x += 100 * Time::deltaTime; // HW16A071 黒田達範
 
         // ターゲットと弾の当たり判定
         Rect bulletRect(bulletPos, Vector2(32, 20));
@@ -47,7 +47,7 @@ void Update()
             bulletPos.x = -999; // 弾を発射可能な状態に戻す
         }
         if(bulletPos.x > 360){
-            bulletPos.x = -999;
+            bulletPos.x = -999; // HW16A071 黒田達範
         }
     }
 
@@ -73,6 +73,6 @@ void Update()
     // スコアの描画
     SetFont("nicoca_v1.ttf", 20.0f);
     DrawText(FormatString("%05d", score), Vector2(-319, 199), Color::black);
-    DrawText(FormatString("%05d", score), Vector2(-320, 200), Color::white);
+    DrawText(FormatString("%05d", score), Vector2(-320, 200), Color::white); // HW16A071 黒田達範
 }
 
