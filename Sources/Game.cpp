@@ -49,8 +49,12 @@ void Update()
 
     // 弾の移動
     if (bulletPos.x > -999) {
+<<<<<<< HEAD
+        bulletPos.x += 100 * Time::deltaTime; // HW16A071 黒田達範
+=======
         bulletPos.x += 10 * Time::deltaTime;
         bulletPos.x += 100 * Time::deltaTime;
+>>>>>>> 83e1ba85ec42d707f65a1e5b10817a464d653eab
 
 
         // ターゲットと弾の当たり判定
@@ -62,7 +66,13 @@ void Update()
             PlaySound("se_maoudamashii_explosion03.mp3");
             
         }
+<<<<<<< HEAD
+        if(bulletPos.x > 360){
+            bulletPos.x = -999; // HW16A071 黒田達範
+        }
+=======
         
+>>>>>>> 83e1ba85ec42d707f65a1e5b10817a464d653eab
     }
 
     // 背景の描画
@@ -98,9 +108,14 @@ void Update()
     DrawText(FormatString("%02d", score), Vector2(-320, 180), Color::white);
 =======
     SetFont("nicoca_v1.ttf", 20.0f);
+<<<<<<< HEAD
+    DrawText(FormatString("%05d", score), Vector2(-319, 199), Color::black);
+    DrawText(FormatString("%05d", score), Vector2(-320, 200), Color::white); // HW16A071 黒田達範
+=======
     DrawText(FormatString("%02d", score), Vector2(-319, 199), Color::black);
     DrawText(FormatString("%02d", score), Vector2(-320, 200), Color::white);
     
 >>>>>>> dfceef94e4dfc15dfdfd42add984334fed62b444
+>>>>>>> 83e1ba85ec42d707f65a1e5b10817a464d653eab
 }
 
